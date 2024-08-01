@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8091:8080"
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/_core
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=$$TF123.asdu$123
+
+  database:
+    container_name: database
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=_core
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=$$TF123.asdu$123
